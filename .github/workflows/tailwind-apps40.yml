@@ -18,11 +18,12 @@ env:
   tailwindWebImages: TailwindTraders-Backend/Deploy/tailwindtraders-images
   tailwindServiceAccount: TailwindTraders-Backend/Deploy/helm/ttsa.yaml
 
-  # Github SECRETS
+  # Github SECRETS (variables that'll all end up being secrets, you know... like at some point)
+  #AZURE_CREDENTIALS.  (JsonObject) that represents the AD SP thats gonna run all the AZ commands
+  #                     Because this badboy is going to write authorization, it needs to be highly priveledged
+  #AKS_ClientID (string) : a363d7f3-3b01-4b2d-b1f4-b38d6a066487
+  #AKS_CLIENT_SECRET (string)
   sqlServerUser: sqladmin
-  #AZURE_CREDENTIALS.  (JsonObject) that represents the AD SP
-  aksClientID: a363d7f3-3b01-4b2d-b1f4-b38d6a066487
-  #CLIENT_SECRET (string)
   #SQLSERVEPASSWORD (string)
   
 
@@ -86,11 +87,12 @@ jobs:
           echo "paramcheck sqlServerAdministratorLogin: $sqlServerUser"
 
           az deployment group create --resource-group $resourceGroup --template-file $tailwindInfrastructure \
-            --parameters servicePrincipalId=$aksClientID servicePrincipalSecret=${{ secrets.CLIENT_SECRET }} sqlServerAdministratorLogin=$sqlServerUser sqlServerAdministratorLoginPassword=${{ secrets.sqlServePassword }} aksVersion=1.14.8 pgversion=10 vnetSubnetID=$vnetID
+            --parameters servicePrincipalId=${{ secrets.AKS_CLIENT_ID }} servicePrincipalSecret=${{ secrets.AKS_CLIENT_SECRET }} sqlServerAdministratorLogin=$sqlServerUser sqlServerAdministratorLoginPassword=${{ secrets.sqlServePassword }} aksVersion=1.14.8 pgversion=10 vnetSubnetID=$vnetID
             
           echo "::set-env name=AKS_CLUSTER::$(az aks list --resource-group $resourceGroup --query [0].name -o tsv)"
 
           #Missing input parameters: sqlServerAdministratorLogin, sqlServerAdministratorLoginPassword, vnetSubnetID
+          #InvalidTemplateDeployment - The template deployment failed with error: 'Authorization failed for template resource '09dc6f61-99b0-5dd7-b01a-2b2a2a370fb6' of type 'Microsoft.Authorization/roleAssignments'. The client 'fb8af8a5-6417-4279-b355-f6bf7ec9db94' with object id 'fb8af8a5-6417-4279-b355-f6bf7ec9db94' does not have permission to perform action 'Microsoft.Authorization/roleAssignments/write' at scope '/subscriptions/2d5bb2c8-8be8-4539-b48f-fbfd86852fa9/resourceGroups/TailwindJessica/providers/Microsoft.Authorization/roleAssignments/09dc6f61-99b0-5dd7-b01a-2b2a2a370fb6'.'.
 
           AKS_CLUSTER=$(az aks list --resource-group $resourceGroup --query '[0].name' -o tsv)
 
