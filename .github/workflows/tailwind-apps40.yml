@@ -21,7 +21,7 @@ env:
   # Github SECRETS
   sqlServerUser: sqladmin
   #AZURE_CREDENTIALS.  (JsonObject) that represents the AD SP
-  aksClientID: ae31406a-8d81-45f6-a9b2-f6cfa04f31f5
+  aksClientID: a363d7f3-3b01-4b2d-b1f4-b38d6a066487
   #CLIENT_SECRET (string)
   #SQLSERVEPASSWORD (string)
   
