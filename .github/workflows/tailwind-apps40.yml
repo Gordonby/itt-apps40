@@ -87,7 +87,7 @@ jobs:
             aksVersion=1.14.8 pgversion=10 vnetSubnetID=$vnetID
           echo "::set-env name=AKS_CLUSTER::$(az aks list --resource-group $resourceGroup --query [0].name -o tsv)"
 
-#Missing input parameters: sqlServerAdministratorLogin, sqlServerAdministratorLoginPassword, vnetSubnetID
+          #Missing input parameters: sqlServerAdministratorLogin, sqlServerAdministratorLoginPassword, vnetSubnetID
 
           AKS_CLUSTER=$(az aks list --resource-group $resourceGroup --query '[0].name' -o tsv)
 
