@@ -86,8 +86,7 @@ jobs:
           echo "paramcheck sqlServerAdministratorLogin: $sqlServerUser"
 
           az deployment group create --resource-group $resourceGroup --template-file $tailwindInfrastructure \
-            --parameters servicePrincipalId=$aksClientID servicePrincipalSecret=${{ secrets.CLIENT_SECRET }} \
-            sqlServerAdministratorLoginPassword=${{ secrets.sqlServePassword }} aksVersion=1.14.8 pgversion=10 vnetSubnetID=$vnetID
+            --parameters servicePrincipalId=$aksClientID servicePrincipalSecret=${{ secrets.CLIENT_SECRET }} sqlServerAdministratorLogin=$sqlServerUser sqlServerAdministratorLoginPassword=${{ secrets.sqlServePassword }} aksVersion=1.14.8 pgversion=10 vnetSubnetID=$vnetID
             
           echo "::set-env name=AKS_CLUSTER::$(az aks list --resource-group $resourceGroup --query [0].name -o tsv)"
 
