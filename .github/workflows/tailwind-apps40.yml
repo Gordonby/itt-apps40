@@ -3,12 +3,14 @@ on: [push]
 name: apps40-full-cicd
 
 env:
+  #core variables
   resourceGroup: TailwindJessica
   location: eastus
+  subName: "gobyers-int"
+  
+  #tagging variables
   SESSION_CODE: itt-apps40
   USER_ID: gobyers
-  subName: "gobyers-int"
-  aksServicePrincipalId: ae31406a-8d81-45f6-a9b2-f6cfa04f31f5 
 
   # tailwind deployment
   tailwindInfrastructure: deployment.json
@@ -19,9 +21,9 @@ env:
   tailwindServiceAccount: TailwindTraders-Backend/Deploy/helm/ttsa.yaml
 
   # Github SECRETS (variables that'll all end up being secrets, you know... like at some point)
-  #AZURE_CREDENTIALS.  (JsonObject) that represents the AD SP thats gonna run all the AZ commands
-  #                     Because this badboy is going to write authorization, it needs to be highly priveledged
-  #AKS_ClientID (string) : a363d7f3-3b01-4b2d-b1f4-b38d6a066487
+  #AZURE_CREDENTIALS.  (JsonObject) That represents the AD SP thats gonna run all the AZ commands
+  #                                 Because this badboy is going to write authorization, it needs to be highly priveledged (owner)
+  #AKS_ClientID (string) 
   #AKS_CLIENT_SECRET (string)
   sqlServerUser: sqladmin
   #SQLSERVEPASSWORD (string)
