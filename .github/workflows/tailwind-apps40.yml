@@ -310,6 +310,22 @@ jobs:
     env:
       nameSpace: twt
     steps:
+      # checkout needed branches
+      - name: git checkout master branch
+        uses: actions/checkout@master
+      - name: "Checkout TailwindTraders Backend Source"
+        run: |
+          # fresh download
+          rm -rf TailwindTraders-Backend
+
+          git clone https://github.com/Microsoft/TailwindTraders-Backend.git
+          
+      # log into Azure
+      - name: "Login via Azure CLI"
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: "configure deployment environment"
         run: |
           # set for this step
