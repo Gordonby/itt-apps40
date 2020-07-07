@@ -344,6 +344,8 @@ jobs:
           echo "::set-env name=pictures::$(az storage account list -g $resourceGroup --query [0].primaryEndpoints.blob -o tsv)"
 
           # git -C TailwindTraders-Backend checkout ed86d5f
+          
+          az aks get-credentials --name $AKS_CLUSTER --resource-group $resourceGroup --admin --overwrite-existing
 
       - name: "helm install login api"
         run: |
