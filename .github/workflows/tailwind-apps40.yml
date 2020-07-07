@@ -184,7 +184,13 @@ jobs:
           echo "resource group $resourceGroup"
           
           pwsh -Version
-                    
+          
+          echo "pwsh get-location"
+          pwsh -command "get-location"
+          
+          echo "pwsh test path $tailwindChartValuesScript"
+          pwsh -command "test-path $tailwindChartValuesScript"
+          
           pwsh "$tailwindChartValuesScript" -resourceGroup $resourceGroup -outputFile $tailwindChartValues
 
       - name: "Get ACR Container Information"
