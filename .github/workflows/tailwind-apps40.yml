@@ -26,7 +26,6 @@ env:
   sqlServerUser: sqladmin
   #SQLSERVEPASSWORD (string)
   
-
 jobs:
   deployInfra:
     runs-on: ubuntu-latest
