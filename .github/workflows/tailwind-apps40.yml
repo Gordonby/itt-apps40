@@ -170,7 +170,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: deployInfra
     steps:
-      # checkout branches
+      # checkout needed branches
       - name: git checkout master branch
         uses: actions/checkout@master
       - name: "Checkout TailwindTraders Backend Source"
@@ -179,6 +179,12 @@ jobs:
           rm -rf TailwindTraders-Backend
 
           git clone https://github.com/Microsoft/TailwindTraders-Backend.git
+          
+      # log into Azure
+      - name: "Login via Azure CLI"
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: "Create Helm gvalues file"
         run: |
