@@ -179,6 +179,8 @@ jobs:
 
       - name: "Create Helm gvalues file"
         run: |
+          echo "ps1 file path : $tailwindChartValuesScript"
+                    
           pwsh $tailwindChartValuesScript -resourceGroup $resourceGroup -outputFile $tailwindChartValues
 
       - name: "Get ACR Container Information"
