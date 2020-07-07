@@ -8,6 +8,7 @@ env:
   SESSION_CODE: itt-apps40
   USER_ID: gobyers
   subName: "gobyers-int"
+  aksServicePrincipalId: ae31406a-8d81-45f6-a9b2-f6cfa04f31f5 
 
   # tailwind deployment
   tailwindInfrastructure: deployment.json
@@ -19,6 +20,11 @@ env:
 
   # Github SECRETS
   sqlServerUser: sqladmin
+  #AZURE_CREDENTIALS.  (JsonObject) that represents the AD SP
+  aksClientID: ae31406a-8d81-45f6-a9b2-f6cfa04f31f5
+  #CLIENT_SECRET (string)
+  #SQLSERVEPASSWORD (string)
+  
 
 jobs:
   deployInfra:
@@ -70,8 +76,6 @@ jobs:
 
       # Deploy backend infrastructure
       - name: "Setup Backend Infra"
-        env:
-          azureClientID: c9d0658b-81cc-40a7-bea6-6993fa5f2373
         run: |
           vnetID=$(az network vnet subnet show --resource-group $resourceGroup --vnet-name k8sVNet --name k8sSubnet --query id -o tsv)
 
@@ -82,7 +86,7 @@ jobs:
           echo "paramcheck sqlServerAdministratorLogin: $sqlServerUser"
 
           az deployment group create --resource-group $resourceGroup --template-file $tailwindInfrastructure \
-            --parameters servicePrincipalId=$azureClientID servicePrincipalSecret=${{ secrets.CLIENT_SECRET }} \
+            --parameters servicePrincipalId=$aksClientID servicePrincipalSecret=${{ secrets.CLIENT_SECRET }} \
             sqlServerAdministratorLoginPassword=${{ secrets.sqlServePassword }} aksVersion=1.14.8 pgversion=10 vnetSubnetID=$vnetID
             
           echo "::set-env name=AKS_CLUSTER::$(az aks list --resource-group $resourceGroup --query [0].name -o tsv)"
