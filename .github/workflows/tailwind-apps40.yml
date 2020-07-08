@@ -166,9 +166,11 @@ jobs:
             namespace: $nameSpace
           EOF
 
-  buildImages:
+  buildImages and deploy:
     runs-on: ubuntu-latest
     needs: deployInfra
+    env:
+      nameSpace: twt
     steps:
       # checkout needed branches
       - name: git checkout master branch
@@ -202,6 +204,11 @@ jobs:
           
           pwsh "$tailwindChartValuesScript" -resourceGroup $resourceGroup -outputFile $tailwindChartValues
 
+      - uses: actions/upload-artifact@master
+        with:
+          name: tailwindChartValues.yaml
+          path: deployartifacts/helm
+          
       - name: "Get ACR Container Information"
         run: |
           echo "Retrieving Container Registry info..."
@@ -303,28 +310,6 @@ jobs:
           docker build $GITHUB_WORKSPACE/TailwindTraders-Website/Source/Tailwind.Traders.Web/ -t $CONTAINER_REGISTRY/web:$GITHUB_SHA
 
           docker push $CONTAINER_REGISTRY/web:$GITHUB_SHA
-
-  deployMicroservices:
-    runs-on: ubuntu-latest
-    needs: buildImages
-    env:
-      nameSpace: twt
-    steps:
-      # checkout needed branches
-      - name: git checkout master branch
-        uses: actions/checkout@master
-      - name: "Checkout TailwindTraders Backend Source"
-        run: |
-          # fresh download
-          rm -rf TailwindTraders-Backend
-
-          git clone https://github.com/Microsoft/TailwindTraders-Backend.git
-          
-      # log into Azure
-      - name: "Login via Azure CLI"
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: "configure deployment environment"
         run: |
