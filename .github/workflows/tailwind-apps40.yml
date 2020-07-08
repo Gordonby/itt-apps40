@@ -166,7 +166,7 @@ jobs:
             namespace: $nameSpace
           EOF
 
-  buildImages and deploy:
+  BuildImages_and_Deploy:
     runs-on: ubuntu-latest
     needs: deployInfra
     env:
