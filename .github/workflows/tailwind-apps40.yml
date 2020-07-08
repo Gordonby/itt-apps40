@@ -181,6 +181,7 @@ jobs:
 
       - name: "Get ACR Container Information"
         run: |
+          echo "Running as $USER
           echo "Retrieving Container Registry info..."
 
           acrName=$(az acr list -g $resourceGroup -o tsv --query [0].name)
