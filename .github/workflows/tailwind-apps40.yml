@@ -185,11 +185,6 @@ jobs:
           
           pwsh "$tailwindChartValuesScript" -resourceGroup $resourceGroup -outputFile $tailwindChartValues
 
-      - uses: actions/upload-artifact@master
-        with:
-          name: tailwindChartValues.yaml
-          path: deployartifacts/helm
-          
       - name: "Get ACR Container Information"
         run: |
           echo "Retrieving Container Registry info..."
