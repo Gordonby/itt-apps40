@@ -27,6 +27,8 @@ env:
   #AKS_CLIENT_SECRET (string)
   sqlServerUser: sqladmin
   #SQLSERVEPASSWORD (string)
+    
+
 
 jobs:
   deployInfra:
