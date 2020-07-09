@@ -1,7 +1,12 @@
-on: [push]
-
 name: apps40-full-cicd
-
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Whatgwan'
+        required: true
+        default: 'Deploy'
+        
 env:
   #core variables
   resourceGroup: TailwindJessica
@@ -31,8 +36,25 @@ env:
 
 
 jobs:
+  startSelfHostedRunner:
+    runs-on: ubuntu-latest
+    steps:
+      # log into Azure
+      - name: "Login via Azure CLI"
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          
+      # start azure vm
+      - name: "Start self hosted runner"
+        run: |
+          az vm start -n co01git01 -g contosodomain
+
+
+        
   deployInfra:
     runs-on: self-hosted
+    needs: startSelfHostedRunner
     steps:
       # checkout branch
       - name: git checkout master branch
