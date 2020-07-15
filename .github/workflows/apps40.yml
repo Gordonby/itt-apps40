@@ -25,7 +25,8 @@ env:
   USER_ID: gobyers
   
   # tailwind deployment
-  07/lwindBackendGit: https://github.com/Microsoft/TailwindTraders-Backend.git #https://github.com/Gordonby/TailwindTraders-Backend (GordonBy fork was tested 15/07/2020), but lets hope the Msft one stays solid
+  tailwindBackendGit: https://github.com/Microsoft/TailwindTraders-Backend.git #https://github.com/Gordonby/TailwindTraders-Backend (GordonBy fork was tested 15/07/2020), but lets hope the Msft one stays solid
+  tailwindFrontendGit: https://github.com/gordonby/TailwindTraders-Website.git
   tailwindInfrastructure: deployment.json
   tailwindCharts: TailwindTraders-Backend/Deploy/helm
   tailwindChartValuesScript: helm-values/generate-config.ps1
@@ -319,7 +320,8 @@ jobs:
           rm -rf TailwindTraders-Website
 
           #git clone https://github.com/microsoft/TailwindTraders-Website.git
-          git clone https://github.com/neilpeterson/TailwindTraders-Website.git
+          #git clone https://github.com/neilpeterson/TailwindTraders-Website.git
+          git clone $tailwindFrontendGit
 
           docker build $GITHUB_WORKSPACE/TailwindTraders-Website/Source/Tailwind.Traders.Web/ -t $CONTAINER_REGISTRY/web:$GITHUB_SHA
 
