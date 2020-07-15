@@ -51,7 +51,12 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-          
+      
+      # TODO: Check that resource group already exists.  Otherwise advise that it needs to be created and the AzureCredential in the secret needs Owner IAM.
+      - name: "Check pre-requisites"
+        run: |
+          az group show --subscription "$subName" --name $resourceGroup
+            
       # start azure vm
       - name: "Start self hosted runner"
         run: |
