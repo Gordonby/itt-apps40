@@ -25,6 +25,7 @@ env:
   USER_ID: gobyers
   
   # tailwind deployment
+  07/lwindBackendGit: https://github.com/Microsoft/TailwindTraders-Backend.git #https://github.com/Gordonby/TailwindTraders-Backend (GordonBy fork was tested 15/07/2020), but lets hope the Msft one stays solid
   tailwindInfrastructure: deployment.json
   tailwindCharts: TailwindTraders-Backend/Deploy/helm
   tailwindChartValuesScript: helm-values/generate-config.ps1
@@ -215,7 +216,7 @@ jobs:
           # fresh download
           rm -rf TailwindTraders-Backend
 
-          git clone https://github.com/Microsoft/TailwindTraders-Backend.git
+          git clone $tailwindBackendGit
 
       - name: "Create Helm gvalues file"
         run: |
