@@ -2,18 +2,25 @@ name: apps40-full-cicd
 on:
   workflow_dispatch:
     inputs:
-      name:
-        description: 'Whatgwan'
+      resourceGroup:
+        description: 'Name of resource group to deploy to'
         required: true
-        default: 'Deploy'
-        
+        default: 'Tailwind'
+      location:
+        description: 'Azure location'
+        required: true
+        default: 'eastus'    
+      subName:
+        description: 'Azure subscription name'
+        required: true
+        default: 'gobyers-int'    
 env:
   #core variables
-  resourceGroup: TailwindJessica
-  location: eastus
-  subName: "gobyers-int"
+  #resourceGroup: TailwindJessica
+  #location: eastus
+  #subName: "gobyers-int"
   
-  #tagging variables
+  #tagging variables, not really needed
   SESSION_CODE: itt-apps40
   USER_ID: gobyers
   
