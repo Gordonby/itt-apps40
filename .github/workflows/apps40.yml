@@ -112,6 +112,14 @@ jobs:
             az network vnet subnet create --resource-group $resourceGroup --subscription "$subName" --vnet-name k8sVNet --name VNSubnet  --address-prefix 10.241.0.0/16 
           fi
 
+      # K8S Version
+      - name: "Select K8S Version"
+        run: |
+          az aks get-versions --location $location -o table
+
+          #TODO: Make this better
+          $k8sversion="1.15.12"
+
       # Deploy backend infrastructure
       - name: "Setup Backend Infra"
         run: |
@@ -123,7 +131,7 @@ jobs:
           echo "paramcheck sqlServerAdministratorLogin: $sqlServerUser"
           
           az deployment group create --resource-group $resourceGroup --template-file $tailwindInfrastructure \
-            --parameters servicePrincipalId=${{ secrets.AKS_CLIENT_ID }} servicePrincipalSecret=${{ secrets.AKS_CLIENT_SECRET }} sqlServerAdministratorLogin=$sqlServerUser sqlServerAdministratorLoginPassword=${{ secrets.sqlServePassword }} aksVersion=1.15.12 pgversion=10 vnetSubnetID=$vnetID
+            --parameters servicePrincipalId=${{ secrets.AKS_CLIENT_ID }} servicePrincipalSecret=${{ secrets.AKS_CLIENT_SECRET }} sqlServerAdministratorLogin=$sqlServerUser sqlServerAdministratorLoginPassword=${{ secrets.sqlServePassword }} aksVersion=$k8sversion pgversion=10 vnetSubnetID=$vnetID
             
           echo "::set-env name=AKS_CLUSTER::$(az aks list --resource-group $resourceGroup --query [0].name -o tsv)"
 
