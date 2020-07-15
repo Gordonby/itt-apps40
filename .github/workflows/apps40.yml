@@ -68,7 +68,7 @@ jobs:
         
   deployInfra:
     runs-on: self-hosted
-    needs: startSelfHostedRunner
+    #needs: startSelfHostedRunner
     steps:
       # checkout branch
       - name: git checkout master branch
