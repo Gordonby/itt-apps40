@@ -16,9 +16,9 @@ on:
         default: 'gobyers-int'    
 env:
   #core variables
-  #resourceGroup: TailwindJessica
-  #location: eastus
-  #subName: "gobyers-int"
+  resourceGroup: ${{ github.event.inputs.resourceGroup }} #TailwindJessica
+  location: ${{ github.event.inputs.location }} #eastus
+  subName: ${{ github.event.inputs.subName }} #gobyers-int"
   
   #tagging variables, not really needed
   SESSION_CODE: itt-apps40
