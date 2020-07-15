@@ -118,7 +118,7 @@ jobs:
           az aks get-versions --location $location -o table
 
           #TODO: Make this better
-          $k8sversion="1.15.12"
+          k8sversion="1.15.12"
 
       # Deploy backend infrastructure
       - name: "Setup Backend Infra"
