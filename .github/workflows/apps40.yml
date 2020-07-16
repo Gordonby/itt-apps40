@@ -119,8 +119,8 @@ jobs:
         run: |
           az aks get-versions --location $location -o table
 
-          #TODO: Make this better
-          k8sversion="1.15.12"
+          #use the oldest k8s version to avoid breaking changes for as long as possible (currently 1.15.11)
+          k8sversion=$(az aks get-versions -l eastus --query 'orchestrators[0].orchestratorVersion' -o tsv)
 
       # Deploy backend infrastructure
       - name: "Setup Backend Infra"
