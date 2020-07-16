@@ -25,7 +25,7 @@ env:
   USER_ID: gobyers
   
   # tailwind deployment
-  tailwindBackendGit: https://github.com/Microsoft/TailwindTraders-Backend.git #https://github.com/Gordonby/TailwindTraders-Backend (GordonBy fork was tested 15/07/2020), but lets hope the Msft one stays solid
+  tailwindBackendGit: https://github.com/Gordonby/TailwindTraders-Backend #https://github.com/Microsoft/TailwindTraders-Backend.git #https://github.com/Gordonby/TailwindTraders-Backend (GordonBy fork was tested 15/07/2020), but lets hope the Msft one stays solid
   tailwindFrontendGit: https://github.com/gordonby/TailwindTraders-Website.git #https://github.com/jldeen/TailwindTraders-Website
   tailwindInfrastructure: deployment.json
   tailwindCharts: TailwindTraders-Backend/Deploy/helm
