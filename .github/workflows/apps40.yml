@@ -26,7 +26,7 @@ env:
   
   # tailwind deployment
   tailwindBackendGit: https://github.com/Microsoft/TailwindTraders-Backend.git #https://github.com/Gordonby/TailwindTraders-Backend (GordonBy fork was tested 15/07/2020), but lets hope the Msft one stays solid
-  tailwindFrontendGit: https://github.com/gordonby/TailwindTraders-Website.git
+  tailwindFrontendGit: https://github.com/jldeen/TailwindTraders-Website #https://github.com/gordonby/TailwindTraders-Website.git
   tailwindInfrastructure: deployment.json
   tailwindCharts: TailwindTraders-Backend/Deploy/helm
   tailwindChartValuesScript: helm-values/generate-config.ps1
