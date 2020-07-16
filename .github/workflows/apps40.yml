@@ -120,7 +120,7 @@ jobs:
           az aks get-versions --location $location -o table
 
           #use the oldest k8s version to avoid breaking changes for as long as possible (currently 1.15.11)
-          k8sversion=$(az aks get-versions -l eastus --query 'orchestrators[0].orchestratorVersion' -o tsv)
+          k8sversion=$(az aks get-versions -l eastus --query 'orchestrators[-1].orchestratorVersion' -o tsv)
           
           echo "Using K8S Version: $k8sversion"
 
