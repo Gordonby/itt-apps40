@@ -212,12 +212,12 @@ jobs:
             namespace: $nameSpace
           EOF
 
-      - name: "Authorise AKS against ACR"
-        env:
-          nameSpace: twt
-        run: |
-          acrName=$(az acr list -g $resourceGroup -o tsv --query [0].name)
-          az aks update -n $AKS_CLUSTER  -g $resourceGroup --attach-acr $acrName
+#      - name: "Authorise AKS against ACR"
+#        env:
+#          nameSpace: twt
+#        run: |
+#          acrName=$(az acr list -g $resourceGroup -o tsv --query [0].name)
+#          az aks update -n $AKS_CLUSTER  -g $resourceGroup --attach-acr $acrName
 
 
 
