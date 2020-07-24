@@ -13,9 +13,11 @@ There's a GitHub action that runs and does everything!
 Ok, well not quite everything.  But ALMOST everything.  GitHub actions generally depend on some secrets which store things like credentials so they can actually run in your environment.  To speed that up, i've even made a short script you can run in the Azure CloudShell
 
 1. Fork this repo.
-1. Run the secret setup script in https://shell.azure.com
+1. Run the setup script in https://shell.azure.com
    This will give you 4 secrets that you need to plug into your repo's secret store.  One of those secrets is called Azure Credentials, it's a new Service Principal that will be used by GitHub to access your Azure subscription.
-   The script will also create a resource group and assign the new Service Principal permission to do stuff.  It won't have access to do anything else, so when you're done with Tailwind, it's really easy to clean up.  Throw the resource group in the bin, delete the service principal, and you're done.
+   The script will also create a resource group and assign the new Service Principal permission to do stuff.  
+   https://raw.githubusercontent.com/Gordonby/itt-apps40/master/Azure-Prerequisite-Setup.sh
+1. Add the secrets from above into the repo secrets
 1. Run the GitHub action
 1. Wait, like a long time
 1. Run kubectl against AKS and marvel at what's created.
