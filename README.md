@@ -13,6 +13,7 @@ There's a GitHub action that runs and does everything!
 Ok, well not quite everything.  But ALMOST everything.  GitHub actions generally depend on some secrets which store things like credentials so they can actually run in your environment.  To speed that up, i've even made a short script you can run in the Azure CloudShell
 
 1. Fork this repo.
+1. Create a Self hosted Runner if you don't already have one. https://github.com/Gordonby/itt-apps40/blob/master/SelfHostedRunner.md
 1. Run the setup script in https://shell.azure.com
    This will give you 4 secrets that you need to plug into your repo's secret store.  One of those secrets is called Azure Credentials, it's a new Service Principal that will be used by GitHub to access your Azure subscription.
    The script will also create a resource group and assign the new Service Principal permission to do stuff.  
