@@ -1,6 +1,6 @@
 RESOURCEGROUP=MyTailwind
 LOC=eastus
-SPNAME=Tailwind777
+SPNAME=Tailwind555
 
 #Self Hosted Runner Azure VM
 VMNAME=co01git01
@@ -25,13 +25,23 @@ CLIENTID=$(echo $SP | jq -r '.clientId')
 echo "Giving Service Principal access to GitHub runner"
 az role assignment create --assignee $CLIENTID --role "Virtual Machine Contributor" --scope /subscriptions/$SUBSCRIPTION/resourceGroups/$VMRESOURCEGROUP/providers/Microsoft.Compute/virtualMachines/$VMNAME
 
+
+echo "Adding AKS Service Principal"
+AKSSP=$(az ad sp create-for-rbac --skip-assignment --name "${RESOURCEGROUP}akssp")
+AKSCLIENTID=$(echo $SP | jq -r '.clientId')
+AKSSECRET=$(echo $SP | jq -r '.clientSecret')
+az role assignment create --assignee $AKSCLIENTID --scope /subscriptions/$SUBSCRIPTION/resourceGroups/$RESOURCEGROUP --role Contributor
+echo $AKSSP
+
 echo "Secret values for your GitHub repo"
 echo "Azure Credentials"
 echo $SP | jq '.'
-
+echo ""
+echo "AKS CLIENT ID: $AKSCLIENTID"
+echo "AKS CLIENT SECRET: $AKSSECRET"
 
 echo ""
-echo "Launch your Github Action with...."
+echo "Launch your Github Action with these values"
 echo "Resource Group = $RESOURCEGROUP"
 echo "Location = $LOC"
-echo "Azure subscription name = SUBSCRIPTIONNAME"
+echo "Azure subscription name = $SUBSCRIPTIONNAME"
